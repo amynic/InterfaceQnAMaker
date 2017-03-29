@@ -10,7 +10,13 @@ using System.Net.Http;
 using System.IO;
 
 
-//Admin app to update QnA maker service with new knowledge
+/// <summary>
+/// Simple console application to interact programmatically with the QnA Microsoft Cognitive Service
+/// Capability to query, add Q/A pairs and publish new Knowledge Base
+/// </summary>
+/// <see cref="http://qnamaker.ai/"/>
+/// <remarks> Need to enter KnowledgeBaseID and QnASubscriptionKey to App.config file </remarks>
+
 
 namespace InterfaceQnAMaker
 {
@@ -19,7 +25,10 @@ namespace InterfaceQnAMaker
         //get QnA maker credentials - pulled from App.config
         static string knowledgeBaseID = ConfigurationManager.AppSettings["id"];
         static string qnaMakerSubscriptionKey = ConfigurationManager.AppSettings["subscriptionkey"];
-        public static string uriV2 = "https://westus.api.cognitive.microsoft.com/qnamaker/v2.0/knowledgebases/";
+
+        //Setup base URI for QnA service API
+        public static Uri uri = new Uri("https://westus.api.cognitive.microsoft.com/qnamaker/v1.0");
+        public static Uri uriV2 = new Uri("https://westus.api.cognitive.microsoft.com/qnamaker/v2.0/knowledgebases/");
 
         static void Main(string[] args)
         {
@@ -79,9 +88,7 @@ namespace InterfaceQnAMaker
                     case '3':
                         Console.WriteLine("Preparing to publish new knowledge database ...");
                         output = PublishKB.publishQnA(knowledgeBaseID, qnaMakerSubscriptionKey);
-                        Console.WriteLine(output);
-
-                        
+                                                
                         await Run();
                         break;
 

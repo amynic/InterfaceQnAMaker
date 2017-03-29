@@ -11,7 +11,16 @@ namespace InterfaceQnAMaker
 {
     class AddToKnowledge
     {
-        //If the sample query does not return the correct knowledge, add it to the service
+        /// <summary>
+        /// PATCH: qnamaker/v2.0//knowledgebases/{id}
+        /// Add a new question/answer pair to the service for future use
+        /// </summary>
+        ///     <param name="id">Knowledge Service ID</param>
+        ///     <param name="key">Knowledge Service access keys</param>
+        ///     <param name="question"> String question input </param>
+        ///     <param name="answer"> String answer input </param>
+        /// <remarks> Currently only support single Q/A pairs, the API has further functionality to leverage </remarks>
+
 
         public static string addQnA(string id, string key, string question, string answer)
         {
@@ -19,8 +28,6 @@ namespace InterfaceQnAMaker
             string query = "{\"add\": {\"qnaPairs\": [{\"answer\": \"" + answer + "\", \"question\": \"" + question + "\"}]}}";
 
             var client = new HttpClient();
-
-            // Build URI
             var uri = Program.uriV2 + id;
 
 
@@ -41,8 +48,6 @@ namespace InterfaceQnAMaker
             }
             var responseRaw = (HttpWebResponse)request.GetResponse();
             response = new StreamReader(responseRaw.GetResponseStream()).ReadToEnd();
-
-
 
             return response;
         }

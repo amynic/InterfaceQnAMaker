@@ -10,14 +10,7 @@ namespace InterfaceQnAMaker
 {
     class queryQnA
     {
-        /// <summary>
-        /// POST: qnamaker/v1.0//knowledgebases/{id}/generateAnswer
-        /// Send a question and recieve an answer from the service if it exists
-        /// </summary>
-        ///     <param name="query">The question asked</param>
-        ///     <param name="id">Knowledge Service ID</param>
-        ///     <param name="key">Knowledge Service access keys</param>
-        /// <remarks> Currently returns JSON object converted to a string to print to the console </remarks>
+        // Query the QnA service to check for a response on a sample query
 
         public static string queryService(string query, string id, string key)
         {
@@ -27,8 +20,8 @@ namespace InterfaceQnAMaker
             QnAMakerResult extractinfo;
 
             //Build the URI
-            //Uri qnamakerUriBase = new Uri("https://westus.api.cognitive.microsoft.com/qnamaker/v1.0");
-            var builder = new UriBuilder($"{Program.uri}/knowledgebases/{id}/generateAnswer");
+            Uri qnamakerUriBase = new Uri("https://westus.api.cognitive.microsoft.com/qnamaker/v1.0");
+            var builder = new UriBuilder($"{qnamakerUriBase}/knowledgebases/{id}/generateAnswer");
 
             //Add the question as part of the body
             var postBody = $"{{\"question\": \"{query}\"}}";

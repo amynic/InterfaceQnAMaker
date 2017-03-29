@@ -10,6 +10,12 @@ namespace InterfaceQnAMaker
 {
     class PublishKB
     {
+        /// <summary>
+        /// PUT: qnamaker/v2.0//knowledgebases/{id}
+        /// If Q/A pairs have been added, republish the Knowledge Base (KB) so users can query
+        /// </summary>
+        ///     <param name="id">Knowledge Service ID</param>
+        ///     <param name="key">Knowledge Service access keys</param>
 
         public static string publishQnA(string id, string key)
         {
@@ -45,9 +51,6 @@ namespace InterfaceQnAMaker
                 Console.WriteLine("Ooops, something broke: {0}", ex.Message);
                 Console.WriteLine();
             }
-
-
-
 
             return returnString;
 
