@@ -17,8 +17,8 @@ namespace InterfaceQnAMaker
     class Program
     {
         //get QnA maker credentials - pulled from App.config
-        static string knowledgeBaseID = ConfigurationSettings.AppSettings["id"];
-        static string qnaMakerSubscriptionKey = ConfigurationSettings.AppSettings["subscriptionkey"];
+        static string knowledgeBaseID = ConfigurationManager.AppSettings["id"];
+        static string qnaMakerSubscriptionKey = ConfigurationManager.AppSettings["subscriptionkey"];
         public static string uriV2 = "https://westus.api.cognitive.microsoft.com/qnamaker/v2.0/knowledgebases/";
 
         static void Main(string[] args)
