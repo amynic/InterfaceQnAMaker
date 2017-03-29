@@ -77,14 +77,11 @@ namespace InterfaceQnAMaker
                         break;
 
                     case '3':
-
                         Console.WriteLine("Preparing to publish new knowledge database ...");
-
                         output = publishQnA(knowledgeBaseID, qnaMakerSubscriptionKey);
                         Console.WriteLine(output);
 
-                        Console.WriteLine("Publish Complete");
-
+                        
                         await Run();
                         break;
 
@@ -187,6 +184,7 @@ namespace InterfaceQnAMaker
 
             string postUrl = uriV2 + id;
             var payload = "{}";
+            string returnString = string.Empty;
 
             var request = (HttpWebRequest)WebRequest.Create(postUrl);
             request.Headers.Add("Ocp-Apim-Subscription-Key", key);
@@ -197,14 +195,27 @@ namespace InterfaceQnAMaker
             byte[] bytes = encoding.GetBytes(payload);
             request.ContentLength = bytes.Length;
 
-            using (Stream requestStream = request.GetRequestStream())
+            try
             {
-                // Send the data.
-                requestStream.Write(bytes, 0, bytes.Length);
+                using (Stream requestStream = request.GetRequestStream())
+                {
+                    // Send the data.
+                    requestStream.Write(bytes, 0, bytes.Length);
+                }
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                returnString = response.StatusCode.ToString();
+                Console.WriteLine("Publish Complete");
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Ooops, something broke: {0}", ex.Message);
+                Console.WriteLine();
             }
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            string returnString = response.StatusCode.ToString();
+            
+
 
             return returnString;
 
