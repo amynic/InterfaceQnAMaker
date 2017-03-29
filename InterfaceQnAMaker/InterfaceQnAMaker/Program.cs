@@ -59,7 +59,7 @@ namespace InterfaceQnAMaker
                     case '1':
                         Console.WriteLine("Please enter a query:");
                         query = Console.ReadLine();
-                        output = queryService(query, knowledgeBaseID, qnaMakerSubscriptionKey);
+                        output = queryQnA.queryService(query, knowledgeBaseID, qnaMakerSubscriptionKey);
                         Console.WriteLine(output);
                         await Run();
                         break;
@@ -104,46 +104,6 @@ namespace InterfaceQnAMaker
             }
         }
 
-        public static string queryService(string query, string id, string key)
-        {
-            string response = string.Empty;
-            string answer = string.Empty;
-            string score = string.Empty;
-            QnAMakerResult extractinfo;
-
-            //Build the URI
-            Uri qnamakerUriBase = new Uri("https://westus.api.cognitive.microsoft.com/qnamaker/v1.0");
-            var builder = new UriBuilder($"{qnamakerUriBase}/knowledgebases/{id}/generateAnswer");
-
-            //Add the question as part of the body
-            var postBody = $"{{\"question\": \"{query}\"}}";
-
-            //Send the POST request
-            using (WebClient client = new WebClient())
-            {
-                //Set the encoding to UTF8
-                client.Encoding = System.Text.Encoding.UTF8;
-
-                //Add the subscription key header
-                client.Headers.Add("Ocp-Apim-Subscription-Key", key);
-                client.Headers.Add("Content-Type", "application/json");
-                response = client.UploadString(builder.Uri, postBody);
-            }
-
-            try
-            {
-                extractinfo = JsonConvert.DeserializeObject<QnAMakerResult>(response);
-                answer = extractinfo.Answer.ToString();
-                score = extractinfo.Score.ToString();
-            }
-            catch
-            {
-                throw new Exception("Unable to deserialize QnA Maker response string.");
-            }
-
-            response = "answer: " + answer + " Score: " + score;
-            return response;
-        }
 
         public static string addQnA(string id, string key, string question, string answer)
         {
