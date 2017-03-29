@@ -9,20 +9,17 @@ using System.Net;
 using System.Net.Http;
 using System.IO;
 
-using InterfaceQnAMaker;
+
+//Admin app to update QnA maker service with new knowledge
 
 namespace InterfaceQnAMaker
 {
     class Program
     {
-        //Admin app to update QnA maker service with new knowledge
-       
-
-        //get QnA maker credentials
+        //get QnA maker credentials - pulled from App.config
         static string knowledgeBaseID = ConfigurationSettings.AppSettings["id"];
         static string qnaMakerSubscriptionKey = ConfigurationSettings.AppSettings["subscriptionkey"];
-
-        //Menu options
+        public static string uriV2 = "https://westus.api.cognitive.microsoft.com/qnamaker/v2.0/knowledgebases/";
 
         static void Main(string[] args)
         {
@@ -35,6 +32,8 @@ namespace InterfaceQnAMaker
         {
             Console.ResetColor();
             var exit = false;
+
+            //Init variables
             string output = string.Empty;
             string query = string.Empty;
             string question = string.Empty;
@@ -42,17 +41,21 @@ namespace InterfaceQnAMaker
 
             try
             {
+                //Ask user for task
                 Console.WriteLine();
                 Console.WriteLine("What do you want to do?");
                 Console.WriteLine("=================================================================");
                 Console.WriteLine("1. Query QnA Maker");
                 Console.WriteLine("2. Add to the QnA Maker knowledge base");
+                Console.WriteLine("3. Publish the new knowledge database");
                 Console.WriteLine();
 
                 var key = Console.ReadKey(true);
 
+                //Case statement to excute correct code
                 switch (key.KeyChar)
                 {
+                    // Test a query/question against the current database
                     case '1':
                         Console.WriteLine("Please enter a query:");
                         query = Console.ReadLine();
@@ -72,7 +75,19 @@ namespace InterfaceQnAMaker
                         Console.WriteLine(output);
                         await Run();
                         break;
-                    
+
+                    case '3':
+
+                        Console.WriteLine("Preparing to publish new knowledge database ...");
+
+                        output = publishQnA(knowledgeBaseID, qnaMakerSubscriptionKey);
+                        Console.WriteLine(output);
+
+                        Console.WriteLine("Publish Complete");
+
+                        await Run();
+                        break;
+
                     default:
                         Console.WriteLine("Press any key to exit..");
                         exit = true;
@@ -141,7 +156,7 @@ namespace InterfaceQnAMaker
             var client = new HttpClient();
 
             // Build URI
-            var uri = "https://westus.api.cognitive.microsoft.com/qnamaker/v2.0/knowledgebases/" + id;
+            var uri = uriV2 + id;
 
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
@@ -165,6 +180,35 @@ namespace InterfaceQnAMaker
 
 
             return response;
+        }
+
+        public static string publishQnA(string id, string key)
+        {
+
+            string postUrl = uriV2 + id;
+            var payload = "{}";
+
+            var request = (HttpWebRequest)WebRequest.Create(postUrl);
+            request.Headers.Add("Ocp-Apim-Subscription-Key", key);
+            request.Method = "PUT";
+            request.ContentType = "application/json";
+
+            System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+            byte[] bytes = encoding.GetBytes(payload);
+            request.ContentLength = bytes.Length;
+
+            using (Stream requestStream = request.GetRequestStream())
+            {
+                // Send the data.
+                requestStream.Write(bytes, 0, bytes.Length);
+            }
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            string returnString = response.StatusCode.ToString();
+
+            return returnString;
+
+
         }
     }
 }
