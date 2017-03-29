@@ -11,3 +11,10 @@ c:\users\amynic\documents\visual studio 2015\Projects\InterfaceQnAMaker\Interfac
 C:\Users\amynic\Documents\GitHub\InterfaceQnAMaker\InterfaceQnAMaker\InterfaceQnAMaker\bin\Debug\InterfaceQnAMaker.exe.config
 C:\Users\amynic\Documents\GitHub\InterfaceQnAMaker\InterfaceQnAMaker\InterfaceQnAMaker\obj\Debug\InterfaceQnAMaker.exe
 C:\Users\amynic\Documents\GitHub\InterfaceQnAMaker\InterfaceQnAMaker\InterfaceQnAMaker\obj\Debug\InterfaceQnAMaker.pdb
+C:\Users\amynic\Documents\GitHub\InterfaceQnAMaker\InterfaceQnAMaker\InterfaceQnAMaker\bin\Debug\InterfaceQnAMaker.exe
+C:\Users\amynic\Documents\GitHub\InterfaceQnAMaker\InterfaceQnAMaker\InterfaceQnAMaker\bin\Debug\InterfaceQnAMaker.pdb
+C:\Users\amynic\Documents\GitHub\InterfaceQnAMaker\InterfaceQnAMaker\InterfaceQnAMaker\bin\Debug\Microsoft.WindowsAzure.Configuration.dll
+C:\Users\amynic\Documents\GitHub\InterfaceQnAMaker\InterfaceQnAMaker\InterfaceQnAMaker\bin\Debug\Newtonsoft.Json.dll
+C:\Users\amynic\Documents\GitHub\InterfaceQnAMaker\InterfaceQnAMaker\InterfaceQnAMaker\bin\Debug\Microsoft.WindowsAzure.Configuration.xml
+C:\Users\amynic\Documents\GitHub\InterfaceQnAMaker\InterfaceQnAMaker\InterfaceQnAMaker\bin\Debug\Newtonsoft.Json.xml
+C:\Users\amynic\Documents\GitHub\InterfaceQnAMaker\InterfaceQnAMaker\InterfaceQnAMaker\obj\Debug\InterfaceQnAMaker.csprojResolveAssemblyReference.cache
