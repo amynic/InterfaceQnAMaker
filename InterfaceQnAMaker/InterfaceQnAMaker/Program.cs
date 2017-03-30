@@ -42,7 +42,7 @@ namespace InterfaceQnAMaker
             Console.ResetColor();
             var exit = false;
 
-            //Init variables
+            //Init input/output variables
             string output = string.Empty;
             string query = string.Empty;
             string question = string.Empty;
